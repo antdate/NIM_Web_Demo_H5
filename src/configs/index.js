@@ -1,8 +1,8 @@
 let config = {
   sdk: 'NIM_Web_SDK_v6.1.0',
   // 用户自定义的登录注册地址
-  loginUrl: '/user/login',
-  registUrl: '/user/register',
+  loginUrl: '/login.html',
+  registUrl: '/register.html',
   homeUrl: '/',
 
   // 资源路径根目录，为了方便用户部署在二级以上URL路径上

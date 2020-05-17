@@ -610,8 +610,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var config = {
   sdk: 'NIM_Web_SDK_v6.1.0',
 
-  loginUrl: '/user/login',
-  registUrl: '/user/register',
+  loginUrl: '/login.html',
+  registUrl: '/register.html',
   homeUrl: '/',
 
   resourceUrl: 'http://yx-web.nos.netease.com/webdoc/h5',
