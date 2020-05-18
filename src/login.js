@@ -46,17 +46,26 @@ var formData = new Vue({
       // 服务端帐号均为小写
 
       console.log("发出请求")
-      axios.post(config.loginApi, {phone:this.account,code:this.code},
+      axios.post(config.loginApi, {phone:this.phone,code:this.code},
           { headers: {
                 'Content-Type': 'application/json'
            }
           })
           .then(response => {
-            console.log("resp",response)
+            let data  = this.handlerResponse(response);
+            if (!data){
+              return
+            }
+            console.log("data",data);
+            let token = data.data.im.token;
+            cookie.setCookie('sdktoken', token);
+            cookie.setCookie('jwt_token', data.data.token);
+            cookie.setCookie('uid', this.phone);
+            console.log("sdktoken",token);
+            console.log("jwt_token",data.data.token);
             location.href = config.homeUrl
           })
           .catch(e => {
-            // this.errors.push(e)
             console.log("resp",response)
           })
 
@@ -67,9 +76,40 @@ var formData = new Vue({
     regist () {
       location.href = config.registUrl
     },
+    sendSms(){
+      console.log(this.phone);
+      axios.post(config.sendSmsApi, {phone:this.phone,code:this.code},
+          { headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          .then(response => {
+            let data  = this.handlerResponse(response);
+            if (!data){
+              return;
+            }
+            this.code = data.data.code;
+            alert(data.message);
+          })
+          .catch(e => {
+            // this.errors.push(e)
+            this.handlerError(e)
+          })
+    },
+    handlerResponse(response) {
+      if (response.status !== 200){
+        this.handlerError(response.status+","+response.statusText);
+        return null
+      }
+      if (response.data && response.data.code !== 1000){
+        this.handlerError(response.data.code+","+response.data.message);
+        return null
+      }
+      return response.data
+    },
     handlerError(error){
-      alert(this.errorMsg)
-      return
+      console.error(error);
+      alert(this.errorMsg);
     }
   },
 })

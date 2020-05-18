@@ -420,6 +420,7 @@ var config = {
 
   loginApi: "http://39.100.125.190:8080/user/login",
   registerApi: "http://39.100.125.190:8080/user/register",
+  sendSmsApi: "http://39.100.125.190:8080/user/sendsms",
   loginUrl: '/login.html',
   registUrl: '/regist.html',
   homeUrl: '/',
@@ -16609,6 +16610,8 @@ var formData = new _vue2.default({
 
   methods: {
     login: function login() {
+      var _this = this;
+
       if (!this.phone) {
         this.errorMsg = '手机号不能为空';
         this.handlerError(this.errorMsg);
@@ -16627,11 +16630,21 @@ var formData = new _vue2.default({
 
 
       console.log("发出请求");
-      _axios2.default.post(_configs2.default.loginApi, { phone: this.account, code: this.code }, { headers: {
+      _axios2.default.post(_configs2.default.loginApi, { phone: this.phone, code: this.code }, { headers: {
           'Content-Type': 'application/json'
         }
       }).then(function (response) {
-        console.log("resp", response);
+        var data = _this.handlerResponse(response);
+        if (!data) {
+          return;
+        }
+        console.log("data", data);
+        var token = data.data.im.token;
+        _cookie2.default.setCookie('sdktoken', token);
+        _cookie2.default.setCookie('jwt_token', data.data.token);
+        _cookie2.default.setCookie('uid', _this.phone);
+        console.log("sdktoken", token);
+        console.log("jwt_token", data.data.token);
         location.href = _configs2.default.homeUrl;
       }).catch(function (e) {
         console.log("resp", response);
@@ -16642,9 +16655,38 @@ var formData = new _vue2.default({
     regist: function regist() {
       location.href = _configs2.default.registUrl;
     },
+    sendSms: function sendSms() {
+      var _this2 = this;
+
+      console.log(this.phone);
+      _axios2.default.post(_configs2.default.sendSmsApi, { phone: this.phone, code: this.code }, { headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(function (response) {
+        var data = _this2.handlerResponse(response);
+        if (!data) {
+          return;
+        }
+        _this2.code = data.data.code;
+        alert(data.message);
+      }).catch(function (e) {
+        _this2.handlerError(e);
+      });
+    },
+    handlerResponse: function handlerResponse(response) {
+      if (response.status !== 200) {
+        this.handlerError(response.status + "," + response.statusText);
+        return null;
+      }
+      if (response.data && response.data.code !== 1000) {
+        this.handlerError(response.data.code + "," + response.data.message);
+        return null;
+      }
+      return response.data;
+    },
     handlerError: function handlerError(error) {
+      console.error(error);
       alert(this.errorMsg);
-      return;
     }
   }
 });

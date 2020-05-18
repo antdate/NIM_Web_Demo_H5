@@ -22,6 +22,7 @@
             <div class="cell">
               <span class="icon icon-pwd"></span>
               <input type="text" class="ipt ipt-account" maxlength="20" v-model="code" placeholder="请输入手机验证码"/>
+              <button type="button" class="btn" @click="sendSms">获取验证码</button>
             </div>
           </div>
           <div class="cells">

@@ -3,6 +3,7 @@ let config = {
   // 用户自定义的登录注册地址
   loginApi: "http://39.100.125.190:8080/user/login",
   registerApi: "http://39.100.125.190:8080/user/register",
+  sendSmsApi: "http://39.100.125.190:8080/user/sendsms",
   loginUrl: '/login.html',
   registUrl: '/regist.html',
   homeUrl: '/',

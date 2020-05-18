@@ -469,6 +469,7 @@ var config = {
 
   loginApi: "http://39.100.125.190:8080/user/login",
   registerApi: "http://39.100.125.190:8080/user/register",
+  sendSmsApi: "http://39.100.125.190:8080/user/sendsms",
   loginUrl: '/login.html',
   registUrl: '/regist.html',
   homeUrl: '/',
