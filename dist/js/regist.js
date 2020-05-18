@@ -475,7 +475,7 @@ var config = {
 
   resourceUrl: 'http://yx-web.nos.netease.com/webdoc/h5',
 
-  logo: 'http://yx-web.nos.netease.com/webdoc/h5/im/logo.png',
+  logo: './res/emoji/ajmd/ajmd010.png',
 
   defaultUserIcon: 'http://yx-web.nos.netease.com/webdoc/h5/im/default-icon.png',
 
