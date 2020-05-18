@@ -614,7 +614,7 @@ var config = {
   loginApi: "http://39.100.125.190:8080/user/login",
   registerApi: "http://39.100.125.190:8080/user/register",
   loginUrl: '/login.html',
-  registUrl: '/register.html',
+  registUrl: '/regist.html',
   homeUrl: '/',
 
   resourceUrl: 'http://yx-web.nos.netease.com/webdoc/h5',

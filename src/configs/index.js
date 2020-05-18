@@ -4,7 +4,7 @@ let config = {
   loginApi: "http://39.100.125.190:8080/user/login",
   registerApi: "http://39.100.125.190:8080/user/register",
   loginUrl: '/login.html',
-  registUrl: '/register.html',
+  registUrl: '/regist.html',
   homeUrl: '/',
 
   // 资源路径根目录，为了方便用户部署在二级以上URL路径上
