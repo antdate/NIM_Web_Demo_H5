@@ -16598,6 +16598,7 @@ _vue2.default.use(_touchEvent2.default);
 var formData = new _vue2.default({
   el: '#form-data',
   data: {
+    errorMsg: '',
     logo: _configs2.default.logo,
     phone: '',
     code: ''
@@ -16608,24 +16609,24 @@ var formData = new _vue2.default({
 
   methods: {
     login: function login() {
-      var _this = this;
-
-      if (this.phone === '') {
+      if (!this.phone) {
         this.errorMsg = '手机号不能为空';
+        this.handlerError(this.errorMsg);
         return;
       } else if (this.code === '') {
         this.errorMsg = '手机验证码不能为空';
+        this.handlerError(this.errorMsg);
         return;
       } else if (this.code.length < 4) {
         this.errorMsg = '手机验证码至少需要4位';
+        this.handlerError(this.errorMsg);
         return;
       }
+
       this.errorMsg = '';
 
-      var sdktoken = (0, _md2.default)(this.password);
 
-      _cookie2.default.setCookie('uid', this.account.toLowerCase());
-      _cookie2.default.setCookie('sdktoken', sdktoken);
+      console.log("发出请求");
       _axios2.default.post(_configs2.default.loginApi, { phone: this.account, code: this.code }, { headers: {
           'Content-Type': 'application/json'
         }
@@ -16633,12 +16634,17 @@ var formData = new _vue2.default({
         console.log("resp", response);
         location.href = _configs2.default.homeUrl;
       }).catch(function (e) {
-        _this.errors.push(e);
         console.log("resp", response);
       });
+
+      console.log("发出请求");
     },
     regist: function regist() {
       location.href = _configs2.default.registUrl;
+    },
+    handlerError: function handlerError(error) {
+      alert(this.errorMsg);
+      return;
     }
   }
 });

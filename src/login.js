@@ -17,6 +17,7 @@ import config from './configs'
 var formData = new Vue({
   el: '#form-data',
   data: {
+    errorMsg:'',
     logo: config.logo,
     phone: '',
     code: '',
@@ -26,23 +27,25 @@ var formData = new Vue({
   },
   methods: {
     login () {
-      if (this.phone === '') {
+      if (!this.phone) {
         this.errorMsg = '手机号不能为空'
+        this.handlerError(this.errorMsg)
         return
       } else if (this.code === '') {
         this.errorMsg = '手机验证码不能为空'
+        this.handlerError(this.errorMsg)
         return
       } else if (this.code.length < 4) {
         this.errorMsg = '手机验证码至少需要4位'
+        this.handlerError(this.errorMsg)
         return
       }
+
       this.errorMsg = ''
       // 本demo做一次假登录
-      // 真实场景应在此向服务器发起ajax请求
-      let sdktoken = md5(this.password)
       // 服务端帐号均为小写
-      cookie.setCookie('uid', this.account.toLowerCase())
-      cookie.setCookie('sdktoken', sdktoken)
+
+      console.log("发出请求")
       axios.post(config.loginApi, {phone:this.account,code:this.code},
           { headers: {
                 'Content-Type': 'application/json'
@@ -53,12 +56,20 @@ var formData = new Vue({
             location.href = config.homeUrl
           })
           .catch(e => {
-            this.errors.push(e)
+            // this.errors.push(e)
             console.log("resp",response)
           })
+
+      console.log("发出请求")
+      // cookie.setCookie('uid', this)
+      // cookie.setCookie('sdktoken', sdktoken)
     },
     regist () {
       location.href = config.registUrl
+    },
+    handlerError(error){
+      alert(this.errorMsg)
+      return
     }
   },
 })
