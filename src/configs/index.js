@@ -1,6 +1,8 @@
 let config = {
   sdk: 'NIM_Web_SDK_v6.1.0',
   // 用户自定义的登录注册地址
+  loginApi: "http://39.100.125.190:8080/user/login",
+  registerApi: "http://39.100.125.190:8080/user/register",
   loginUrl: '/login.html',
   registUrl: '/register.html',
   homeUrl: '/',

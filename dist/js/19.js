@@ -1,6 +1,6 @@
 webpackJsonp([19],{
 
-/***/ 321:
+/***/ 346:
 /* no static exports found */
 /* all exports used */
 /*!*******************************!*\
@@ -18,7 +18,7 @@ var Component = __webpack_require__(/*! ../../~/vue-loader/lib/component-normali
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/apple/Workspace/antdate/NIM_Web_Demo_H5/src/pages/General.vue"
+Component.options.__file = "/Users/fotoable/GolandProjects/antdate.cn/NIM_Web_Demo_H5/src/pages/General.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] General.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -53,11 +53,11 @@ module.exports = Component.exports
 
 exports.__esModule = true;
 
-var _index = __webpack_require__(/*! vux/src/components/group/index.vue */ 141);
+var _index = __webpack_require__(/*! vux/src/components/group/index.vue */ 166);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = __webpack_require__(/*! vux/src/components/cell/index.vue */ 160);
+var _index3 = __webpack_require__(/*! vux/src/components/cell/index.vue */ 185);
 
 var _index4 = _interopRequireDefault(_index3);
 

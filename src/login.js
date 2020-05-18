@@ -1,4 +1,5 @@
-import Vue from 'vue'
+import Vue from 'vue';
+import axios from 'axios';
 
 // 添加Fastclick移除移动端点击延迟
 import FastClick from 'fastclick'
@@ -17,23 +18,22 @@ var formData = new Vue({
   el: '#form-data',
   data: {
     logo: config.logo,
-    account: '',
-    password: '',
-    errorMsg: ''
+    phone: '',
+    code: '',
   },
   mounted () {
     this.$el.style.display = ""
   },
   methods: {
     login () {
-      if (this.account === '') {
-        this.errorMsg = '帐号不能为空'
+      if (this.phone === '') {
+        this.errorMsg = '手机号不能为空'
         return
-      } else if (this.password === '') {
-        this.errorMsg = '密码不能为空'
+      } else if (this.code === '') {
+        this.errorMsg = '手机验证码不能为空'
         return
-      } else if (this.password.length < 6) {
-        this.errorMsg = '密码至少需要6位'
+      } else if (this.code.length < 4) {
+        this.errorMsg = '手机验证码至少需要4位'
         return
       }
       this.errorMsg = ''
@@ -43,7 +43,19 @@ var formData = new Vue({
       // 服务端帐号均为小写
       cookie.setCookie('uid', this.account.toLowerCase())
       cookie.setCookie('sdktoken', sdktoken)
-      location.href = config.homeUrl
+      axios.post(config.loginApi, {phone:this.account,code:this.code},
+          { headers: {
+                'Content-Type': 'application/json'
+           }
+          })
+          .then(response => {
+            console.log("resp",response)
+            location.href = config.homeUrl
+          })
+          .catch(e => {
+            this.errors.push(e)
+            console.log("resp",response)
+          })
     },
     regist () {
       location.href = config.registUrl
